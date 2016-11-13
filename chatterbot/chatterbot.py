@@ -62,7 +62,7 @@ class ChatBot(object):
         self.trainer = TrainerClass(self.storage, **kwargs)
         self.training_data = kwargs.get('training_data')
 
-        self.conversation_sessions = SessionManager()
+        self.conversation_sessions = SessionManager(self.storage)
         self.default_session = self.conversation_sessions.new()
 
         self.logger = kwargs.get('logger', logging.getLogger(__name__))

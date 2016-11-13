@@ -1,34 +1,20 @@
-import uuid
-from chatterbot.queues import ResponseQueue
 
 
-class Session(object):
-    """
-    A single chat session.
-    """
-
-    def __init__(self):
-        # A unique identifier for the chat session
-        self.uuid = uuid.uuid1()
-        self.id_string = str(self.uuid)
-
-        # The last 10 statement inputs and outputs
-        self.conversation = ResponseQueue(maxsize=10)
-
-
+# TODO: Rename to ConversationSessionManager
 class SessionManager(object):
     """
     Object to hold and manage multiple chat sessions.
     """
 
-    def __init__(self):
+    def __init__(self, storage):
+        self.storage = storage
         self.sessions = {}
 
     def new(self):
         """
         Add a new chat session.
         """
-        session = Session()
+        session = self.storage.create_conversation()
 
         self.sessions[session.id_string] = session
 
